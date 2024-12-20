@@ -1,7 +1,9 @@
-package adeo.leroymerlin.cdp;
+package adeo.leroymerlin.cdp.services;
 
 import adeo.leroymerlin.cdp.DTOs.BandDTO;
 import adeo.leroymerlin.cdp.DTOs.EventDTO;
+import adeo.leroymerlin.cdp.entities.Event;
+import adeo.leroymerlin.cdp.repository.EventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,15 +12,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EventService {
+public class EventServiceImpl implements EventService{
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final EventRepository eventRepository;
 
-    public EventService(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
+    @Override
     public List<Event> getEvents() {
         LOGGER.info("[EventService] Fetching all events");
         List<Event> events = eventRepository.findAll();
@@ -26,6 +29,7 @@ public class EventService {
         return events;
     }
 
+    @Override
     public void delete(Long id) {
         LOGGER.info("[EventService] Deleting event with id: {}", id);
         if (eventRepository.existsById(id)) {
@@ -36,6 +40,7 @@ public class EventService {
         }
     }
 
+    @Override
     public List<EventDTO> getFilteredEvents(String query) {
         LOGGER.info("[EventService] Fetching and filtering events with query: {}", query);
         List<EventDTO> events = eventRepository.findAll().stream()
@@ -60,6 +65,7 @@ public class EventService {
         return events;
     }
 
+    @Override
     public void updateEvent(Long id, Event event) {
         LOGGER.info("[EventService] Updating event with id: {} and data: {}", id, event);
         event.setId(id); // Ensures the ID matches the path parameter, we can skip this step if we are 100% that the id of event is the same value of id

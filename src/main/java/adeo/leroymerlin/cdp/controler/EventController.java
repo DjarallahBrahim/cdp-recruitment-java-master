@@ -1,6 +1,9 @@
-package adeo.leroymerlin.cdp;
+package adeo.leroymerlin.cdp.controler;
 
 import adeo.leroymerlin.cdp.DTOs.EventDTO;
+import adeo.leroymerlin.cdp.entities.Event;
+import adeo.leroymerlin.cdp.services.EventService;
+import adeo.leroymerlin.cdp.services.EventServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

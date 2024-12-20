@@ -1,4 +1,4 @@
-package adeo.leroymerlin.cdp;
+package adeo.leroymerlin.cdp.entities;
 
 import jakarta.persistence.*;
 import java.util.Set;
