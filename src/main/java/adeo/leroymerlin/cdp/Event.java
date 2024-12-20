@@ -2,6 +2,7 @@ package adeo.leroymerlin.cdp;
 
 import jakarta.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Event {
@@ -70,13 +71,18 @@ public class Event {
 
     @Override
     public String toString() {
-    return "Event{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", imgUrl='" + imgUrl + '\'' +
-            ", bands=" + bands +
-            ", nbStars=" + nbStars +
-            ", comment='" + comment + '\'' +
-            '}';
-}
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", bands_id=" + (bands != null
+                ? bands.stream()
+                .map(band -> band.getId() != null ? String.valueOf(band.getId()) : "null")
+                .collect(Collectors.joining(", "))
+                : "No bands") +
+                ", nbStars=" + nbStars +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
 }
