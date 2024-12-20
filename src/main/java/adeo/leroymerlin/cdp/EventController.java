@@ -38,5 +38,6 @@ public class EventController {
     @PutMapping(value = "/{id}")
     public void updateEvent(@PathVariable Long id, @RequestBody Event event) {
         LOGGER.info("[EventController] [PUT] /api/events/{} - updateEvent triggered with id: {} and event: {}", id, id, event);
+        eventService.updateEvent(id, event);
     }
 }

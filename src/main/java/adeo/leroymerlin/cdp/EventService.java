@@ -40,4 +40,11 @@ public class EventService {
 
         return events;
     }
+
+    public void updateEvent(Long id, Event event) {
+        LOGGER.info("[EventService] Updating event with id: {} and data: {}", id, event);
+        event.setId(id); // Ensures the ID matches the path parameter, we can skip this step if we are 100% that the id of event is the same value of id
+        Event updatedEvent = eventRepository.save(event);
+        LOGGER.info("[EventService] Successfully updated event: {}", updatedEvent);
+    }
 }
