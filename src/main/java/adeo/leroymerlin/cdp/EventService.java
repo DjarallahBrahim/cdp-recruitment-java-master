@@ -1,10 +1,13 @@
 package adeo.leroymerlin.cdp;
 
+import adeo.leroymerlin.cdp.DTOs.BandDTO;
+import adeo.leroymerlin.cdp.DTOs.EventDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -33,9 +36,25 @@ public class EventService {
         }
     }
 
-    public List<Event> getFilteredEvents(String query) {
+    public List<EventDTO> getFilteredEvents(String query) {
         LOGGER.info("[EventService] Fetching and filtering events with query: {}", query);
-        List<Event> events = eventRepository.findAll();
+        List<EventDTO> events = eventRepository.findAll().stream()
+                .filter(event -> event.getBands().stream()
+                .anyMatch(band -> band.getMembers().stream()
+                .anyMatch(member -> member.getName().toLowerCase().contains(query.toLowerCase()))))
+                .map(event -> {
+                    //add count to title
+                    String eventTitleWithCount = event.getTitle() + " [" + event.getBands().size() + "]";
+                    List<BandDTO> bandsWithCounts = event.getBands().stream()
+                        .map(band -> {
+                            //add count to band name
+                            String bandNameWithCount = band.getName() + " [" + band.getMembers().size() + "]";
+                            return new BandDTO(bandNameWithCount, band.getMembers());
+                        })
+                        .collect(Collectors.toList());
+                    return new EventDTO(eventTitleWithCount, event.getImgUrl(), bandsWithCounts);
+                })
+                .collect(Collectors.toList());
         // Filter the events list in pure JAVA here
 
         return events;
