@@ -75,4 +75,11 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/DjarallahBrahim/cdp-recruitment-java-master</url>
+		</repository>
+	</distributionManagement>
 </project>
