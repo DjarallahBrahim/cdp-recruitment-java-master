@@ -1,4 +1,4 @@
-package adeo.leroymerlin.cdp;
+package adeo.leroymerlin.cdp.entities;
 
 import jakarta.persistence.*;
 import java.util.Set;
@@ -29,5 +29,9 @@ public class Band {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
