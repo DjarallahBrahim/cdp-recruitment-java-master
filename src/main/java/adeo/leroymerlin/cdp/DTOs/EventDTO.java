@@ -6,7 +6,9 @@ public class EventDTO {
     private String title;
     private String imgUrl;
     private List<BandDTO> bands;
+    public EventDTO() {
 
+    }
     public EventDTO(String title, String imgUrl, List<BandDTO> bands) {
         this.title = title;
         this.imgUrl = imgUrl;
